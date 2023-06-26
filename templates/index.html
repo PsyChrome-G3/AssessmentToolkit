@@ -16,7 +16,7 @@
                   <h5 class="card-title">Question {{ question.qid }}</h5>
                   <p class="card-text">{{ question.question }}</p>
                   {% if question.screenshot %}
-                  <img src="{{ question.screenshot }}" class="card-img-top" alt="Question Screenshot">
+                  <img src="{{ url_for('static', filename='screenshots/' + question.screenshot) }}" class="card-img-top" alt="Question Screenshot">
                   {% endif %}
                   <form action="{{ url_for('submit') }}" method="POST">
                     <input type="hidden" name="question_id" value="{{ question.qid }}">

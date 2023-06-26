@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from question import QuestionBank
 
 app = Flask(__name__)
+app.static_folder = 'static'
 question_bank = QuestionBank()
 question_bank.load_from_json("data/question_bank.json")
 
