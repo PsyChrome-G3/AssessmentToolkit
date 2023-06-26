@@ -25,16 +25,16 @@ class QuestionBank:
             question_bank_data = json.load(file)
 
         for question_data in question_bank_data:
-            question_id = question_data['QID']
-            question_text = question_data['Question']
-            screenshot_path = question_data['Screenshot relative path']
+            question_id = question_data['question_id']
+            question_text = question_data['question_text']
+            screenshot_path = question_data['screenshot_path']
             answer_choices = []
             for i in range(1, 11):
                 answer = question_data.get(f'A{i}', None)
                 if answer:
                     answer_choices.append(answer)
 
-            correct_answer = question_data['Correct Answer']
+            correct_answer = question_data['correct_answer']
 
             question = Question(question_id, question_text, screenshot_path, answer_choices, correct_answer)
             self.questions.append(question)
