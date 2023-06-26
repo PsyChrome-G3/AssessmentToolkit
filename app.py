@@ -3,7 +3,7 @@ from question import QuestionBank
 
 app = Flask(__name__)
 question_bank = QuestionBank()
-question_bank.load_from_json("question_bank.json")
+question_bank.load_from_json("/data/question_bank.json")
 
 
 @app.route('/')
