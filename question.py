@@ -28,12 +28,7 @@ class QuestionBank:
             question_id = question_data['question_id']
             question_text = question_data['question_text']
             screenshot_path = question_data['screenshot_path']
-            answer_choices = []
-            for i in range(1, 11):
-                answer = question_data.get(f'A{i}', None)
-                if answer:
-                    answer_choices.append(answer)
-
+            answer_choices = question_data['answer_choices']
             correct_answer = question_data['correct_answer']
 
             question = Question(question_id, question_text, screenshot_path, answer_choices, correct_answer)
