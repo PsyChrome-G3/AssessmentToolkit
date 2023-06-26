@@ -39,6 +39,12 @@ class QuestionBank:
             question = Question(question_id, question_text, screenshot_path, answer_choices, correct_answer)
             self.questions.append(question)
 
+    def get_question_by_id(self, question_id):
+        for question in self.questions:
+            if question.qid == question_id:
+                return question
+        return None
+
     def save_to_json(self, json_file):
         # Save self.questions to a JSON file
         pass
