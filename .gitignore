@@ -161,4 +161,7 @@ cython_debug/
 
 *.txt
 *.xlsx
-*.json
+
+# Don't include local question banks
+data/question_bank.json
+screenshots/*.png
