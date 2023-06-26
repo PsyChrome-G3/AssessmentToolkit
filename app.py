@@ -5,9 +5,11 @@ app = Flask(__name__)
 question_bank = QuestionBank()
 question_bank.load_from_json("question_bank.json")
 
+
 @app.route('/')
 def home():
     return render_template('index.html', questions=question_bank.questions)
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -24,5 +26,6 @@ def submit():
 
     return render_template('result.html', result=result)
 
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
