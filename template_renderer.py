@@ -22,10 +22,10 @@ class TemplateRenderer:
         return TemplateRenderer.render(template_name, **context)
 
     @staticmethod
-    def render_result(correct_answer, selected_answer, loaded_json, score):
+    def render_result(correct_answer, selected_answer, loaded_json, score, total_score):
         correct_answer_str = str(correct_answer)
 
-        if selected_answer == correct_answer_str:
+        if selected_answer == correct_answer:
             result = Markup(
                 '<div class="alert alert-success" role="alert">Congratulations! You answered correctly.</div>')
         else:
@@ -39,7 +39,8 @@ class TemplateRenderer:
         context = {
             'result': result,
             'loaded_json': loaded_json,
-            'score': score
+            'score': score,
+            'total_score': total_score
         }
 
         return TemplateRenderer.render('result.html', **context)

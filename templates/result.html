@@ -28,10 +28,12 @@
             <div class="card my-4">
                 <div class="card-body">
                     <h5 class="card-title">{{ result }}</h5>
-                    <h3>Score: {{ score }}</h3>
+                    <div>
+                        Your Score: {{ score }} / {{ total_score }}
+                    </div>
                 </div>
             </div>
-            <a href="/new-question" class="btn btn-primary">New Question</a>
+            <a href="/new-question" class="btn btn-primary">New Question</a><a href="/new-question" class="btn btn-success">Restart Test</a>
         </div>
     </main>
 

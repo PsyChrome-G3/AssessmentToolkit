@@ -17,7 +17,7 @@ class QuestionController:
         return TemplateRenderer.render_question('index.html', question, self.question_number, total_questions,
                                                 self.loaded_json, self.score)
 
-    def result(self, question_id, selected_answer):
+    def result(self, question_id, selected_answer, total_score):
         question = self.question_bank.get_question_by_id(question_id)
 
         if question is None:
@@ -28,7 +28,24 @@ class QuestionController:
         if selected_answer == correct_answer:
             self.score += 1
 
-        return TemplateRenderer.render_result(correct_answer, selected_answer, self.loaded_json, self.score)
+        score = self.calculate_score(question_id, selected_answer)
+        return TemplateRenderer.render_result(correct_answer, selected_answer, self.loaded_json, score, total_score)
+
+    def calculate_score(self, question_id, selected_answer):
+        question = self.question_bank.get_question_by_id(question_id)
+
+        if question is None:
+            return 0
+
+        correct_answer = str(question.correct_answer)  # Convert to string
+
+        if selected_answer == correct_answer:
+            return 1
+        else:
+            return 0
+
+    def get_total_score(self):
+        return self.score
 
     def new_question(self, total_questions):
         self.question_number += 1  # Increment question number

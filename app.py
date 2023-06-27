@@ -34,16 +34,15 @@ def result():
 
     question = question_bank.get_question_by_id(question_id)
 
-    print(selected_answer)
-    print(question.answers)
-
     if question is None:
         return render_template('error.html', message='Question not found.')
 
     if selected_answer not in map(str, question.answers):
         return render_template('error.html', message='Invalid selected answer.')
 
-    return question_controller.result(question_id, selected_answer)
+    total_score = question_controller.get_total_score()
+
+    return question_controller.result(question_id, selected_answer, total_score)
 
 
 @app.route('/new-question')
