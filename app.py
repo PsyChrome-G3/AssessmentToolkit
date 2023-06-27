@@ -12,14 +12,19 @@ def get_random_question():
     return question_bank.get_random_question()
 
 
-@app.route('/')
-def home():
+def render_question(template_name):
     question = get_random_question()
     question_text = question.question
     answer_choices = question.answers
     question_id = question.qid
     screenshot_path = question.screenshot_path
-    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id, screenshot_path=screenshot_path)
+    return render_template(template_name, question_text=question_text, answer_choices=answer_choices,
+                           question_id=question_id, screenshot_path=screenshot_path)
+
+
+@app.route('/')
+def home():
+    return render_question('index.html')
 
 
 @app.route('/result', methods=['POST'])
@@ -38,7 +43,9 @@ def result():
         result = Markup('<div class="alert alert-success" role="alert">Congratulations! You answered correctly.</div>')
     else:
         incorrect_alert = Markup('<div class="alert alert-danger" role="alert">Sorry, your answer is incorrect.</div>')
-        correct_alert = Markup('<div class="alert alert-primary" role="alert"><strong>The correct answer is:</strong><br><div class="correct-answer">' + correct_answer + '</div></div>')
+        correct_alert = Markup(
+            '<div class="alert alert-primary" role="alert"><strong>The correct answer is:</strong><br>'
+            '<div class="correct-answer">' + correct_answer + '</div></div>')
         result = incorrect_alert + correct_alert
 
     return render_template('result.html', result=result)
@@ -46,12 +53,7 @@ def result():
 
 @app.route('/new-question')
 def new_question():
-    question = get_random_question()
-    question_text = question.question
-    answer_choices = question.answers
-    question_id = question.qid
-    screenshot_path = question.screenshot_path
-    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id, screenshot_path=screenshot_path)
+    return render_question('index.html')
 
 
 if __name__ == '__main__':
