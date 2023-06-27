@@ -1,4 +1,5 @@
 import json
+import random
 
 
 class Question:
@@ -39,6 +40,9 @@ class QuestionBank:
             if question.qid == question_id:
                 return question
         return None
+
+    def get_random_question(self):
+        return random.choice(self.questions)
 
     def save_to_json(self, json_file):
         # Save self.questions to a JSON file

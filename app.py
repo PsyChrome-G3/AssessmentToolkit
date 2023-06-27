@@ -2,31 +2,52 @@ from flask import Flask, render_template, request
 from question import QuestionBank
 
 app = Flask(__name__)
-app.static_folder = 'static'
+
 question_bank = QuestionBank()
 question_bank.load_from_json("data/question_bank.json")
+
+# Function to get a random question
+def get_random_question():
+    return question_bank.get_random_question()
 
 
 @app.route('/')
 def home():
-    return render_template('index.html', questions=question_bank.questions)
+    question = get_random_question()
+    question_text = question.question
+    answer_choices = question.answers
+    question_id = question.qid
+    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id)
 
 
-@app.route('/submit', methods=['POST'])
-def submit():
+@app.route('/result', methods=['POST'])
+def result():
     question_id = request.form['question_id']
     selected_answer = request.form['answer']
 
     question = question_bank.get_question_by_id(question_id)
+
+    if question is None:
+        return render_template('error.html', message='Question not found')
+
     correct_answer = question.correct_answer
 
     if selected_answer == correct_answer:
-        result = "Correct!"
+        result = 'Congratulations! You answered correctly.'
     else:
-        result = "Incorrect!"
+        result = 'Sorry, your answer is incorrect.'
 
     return render_template('result.html', result=result)
 
 
+@app.route('/new-question')
+def new_question():
+    question = get_random_question()
+    question_text = question.question
+    answer_choices = question.answers
+    question_id = question.qid
+    return render_template('index.html', question=question)
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
