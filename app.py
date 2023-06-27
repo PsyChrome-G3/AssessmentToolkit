@@ -18,7 +18,8 @@ def home():
     question_text = question.question
     answer_choices = question.answers
     question_id = question.qid
-    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id)
+    screenshot_path = question.screenshot_path
+    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id, screenshot_path=screenshot_path)
 
 
 @app.route('/result', methods=['POST'])
@@ -49,7 +50,8 @@ def new_question():
     question_text = question.question
     answer_choices = question.answers
     question_id = question.qid
-    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id)
+    screenshot_path = question.screenshot_path
+    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id, screenshot_path=screenshot_path)
 
 
 if __name__ == '__main__':

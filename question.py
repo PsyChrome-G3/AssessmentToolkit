@@ -3,10 +3,10 @@ import random
 
 
 class Question:
-    def __init__(self, qid, question, screenshot, answers, correct_answer):
+    def __init__(self, qid, question, screenshot_path, answers, correct_answer):
         self.qid = qid
         self.question = question
-        self.screenshot = screenshot
+        self.screenshot_path = screenshot_path
         self.answers = answers
         self.correct_answer = correct_answer
 
