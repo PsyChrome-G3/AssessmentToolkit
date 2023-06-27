@@ -34,7 +34,7 @@ for index, row in df.iterrows():
     questions.append(question_data)
 
 # Write the questions to a JSON file
-output_file = 'question_bank.json'
+output_file = 'DFIR-QB.json'
 with open(output_file, 'w') as json_file:
     json.dump(questions, json_file, indent=4)
 

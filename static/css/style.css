@@ -69,3 +69,7 @@ code {
 .correct-answer {
   padding-top: 10px;
 }
+
+.loaded-json {
+  color: #00B2EE; /* Change the color value to your desired color */
+}

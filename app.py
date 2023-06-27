@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request
 from question import QuestionBank
 from question_controller import QuestionController
-from template_renderer import TemplateRenderer
 
 app = Flask(__name__, static_folder='static')
 
 question_bank = QuestionBank()
-question_bank.load_from_json("data/question_bank.json")
+question_bank.load_from_json("data/DFIR-QB.json")
 
-question_controller = QuestionController(question_bank)
+loaded_json = "DFIR-QB.json"  # Replace with your Question Bank file name
+question_controller = QuestionController(question_bank, loaded_json)
 
 
 @app.route('/')
