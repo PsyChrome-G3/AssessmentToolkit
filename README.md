@@ -31,11 +31,11 @@ AssessmentToolkit is a Python-based tool designed to help users create and manag
 ## TO-DO
 
 - [X] Determine the file format for storing exam questions.
-- [ ] Design the data structure to represent questions, answers, and media.
-- [ ] Implement the GUI using a suitable library (e.g., Tkinter, PyQt, etc.).
-- [ ] Read and parse the input file to extract question data.
+- [X] Design the data structure to represent questions, answers, and media.
+- [X] Implement the GUI using a suitable library (e.g., Tkinter, PyQt, etc.).
+- [X] Read and parse the input file to extract question data.
 - [ ] Present questions to the user with answer options and media images.
-- [ ] Evaluate user answers and provide immediate feedback.
+- [X] Evaluate user answers and provide immediate feedback.
 - [ ] Implement the ability to move to the next question.
 - [ ] Repeat the process until the end of the exam.
 - [ ] Add extra features like a timer, random question order, review mode, and progress saving.
