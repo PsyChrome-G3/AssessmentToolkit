@@ -17,6 +17,7 @@ class Question:
 class QuestionBank:
     def __init__(self):
         self.questions = []
+        self.used_question_ids = set()
 
     def add_question(self, question):
         self.questions.append(question)
@@ -49,7 +50,15 @@ class QuestionBank:
         return None
 
     def get_random_question(self):
-        return random.choice(self.questions)
+        if len(self.used_question_ids) == len(self.questions):
+            # All questions have been used, handle this case (e.g., return None or raise an exception)
+            return None
+
+        while True:
+            question = random.choice(self.questions)
+            if question.qid not in self.used_question_ids:
+                self.used_question_ids.add(question.qid)
+                return question
 
     def save_to_json(self, json_file):
         try:
