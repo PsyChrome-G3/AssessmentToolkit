@@ -1,59 +1,28 @@
-from flask import Flask, render_template, request
+from flask import Flask
 from question import QuestionBank
-from markupsafe import Markup
+from question_controller import QuestionController
 
 app = Flask(__name__)
 
 question_bank = QuestionBank()
 question_bank.load_from_json("data/question_bank.json")
 
-# Function to get a random question
-def get_random_question():
-    return question_bank.get_random_question()
-
-
-def render_question(template_name):
-    question = get_random_question()
-    question_text = question.question
-    answer_choices = question.answers
-    question_id = question.qid
-    screenshot_path = question.screenshot_path
-    return render_template(template_name, question_text=question_text, answer_choices=answer_choices,
-                           question_id=question_id, screenshot_path=screenshot_path)
+question_controller = QuestionController(question_bank)
 
 
 @app.route('/')
 def home():
-    return render_question('index.html')
+    return question_controller.home()
 
 
 @app.route('/result', methods=['POST'])
 def result():
-    question_id = request.form['question_id']
-    selected_answer = request.form['answer']
-
-    question = question_bank.get_question_by_id(question_id)
-
-    if question is None:
-        return render_template('error.html', message='Question not found')
-
-    correct_answer = question.correct_answer
-
-    if selected_answer == correct_answer:
-        result = Markup('<div class="alert alert-success" role="alert">Congratulations! You answered correctly.</div>')
-    else:
-        incorrect_alert = Markup('<div class="alert alert-danger" role="alert">Sorry, your answer is incorrect.</div>')
-        correct_alert = Markup(
-            '<div class="alert alert-primary" role="alert"><strong>The correct answer is:</strong><br>'
-            '<div class="correct-answer">' + correct_answer + '</div></div>')
-        result = incorrect_alert + correct_alert
-
-    return render_template('result.html', result=result)
+    return question_controller.result()
 
 
 @app.route('/new-question')
 def new_question():
-    return render_question('index.html')
+    return question_controller.new_question()
 
 
 if __name__ == '__main__':
