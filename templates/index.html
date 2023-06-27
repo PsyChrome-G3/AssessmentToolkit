@@ -25,7 +25,7 @@
     <main role="main" class="flex-shrink-0">
         <div class="container">
             <div id="question-container">
-                <h2>Question:</h2>
+                <h2>Question {{ question_number }} of {{ total_questions }}:</h2>
                 <p id="question">{{ question_text }}</p>
                 {% if screenshot_path %}
                     <img src="{{ url_for('static', filename=screenshot_path) }}" alt="Screenshot">

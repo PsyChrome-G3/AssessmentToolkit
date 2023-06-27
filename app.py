@@ -10,16 +10,19 @@ question_bank.load_from_json("data/DFIR-QB.json")
 loaded_json = "DFIR-QB.json"  # Replace with your Question Bank file name
 question_controller = QuestionController(question_bank, loaded_json)
 
+question_number = 0
+total_questions = len(question_bank.questions)
+
 
 @app.route('/')
 def home():
-    return question_controller.home()
+    return question_controller.home(total_questions)
 
 
 @app.route('/result', methods=['POST'])
 def result():
     question_id = request.form.get('question_id')
-    selected_answer = request.form.get('answer')
+    selected_answer = str(request.form.get('answer'))
 
     if not question_id or not selected_answer:
         return render_template('error.html', message='Invalid input data.')
@@ -31,10 +34,13 @@ def result():
 
     question = question_bank.get_question_by_id(question_id)
 
+    print(selected_answer)
+    print(question.answers)
+
     if question is None:
         return render_template('error.html', message='Question not found.')
 
-    if selected_answer not in question.answers:
+    if selected_answer not in map(str, question.answers):
         return render_template('error.html', message='Invalid selected answer.')
 
     return question_controller.result(question_id, selected_answer)
@@ -42,7 +48,7 @@ def result():
 
 @app.route('/new-question')
 def new_question():
-    return question_controller.new_question()
+    return question_controller.new_question(total_questions)
 
 
 if __name__ == '__main__':
