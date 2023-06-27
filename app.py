@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from question import QuestionBank
+from markupsafe import Markup
 
 app = Flask(__name__)
 
@@ -33,9 +34,9 @@ def result():
     correct_answer = question.correct_answer
 
     if selected_answer == correct_answer:
-        result = 'Congratulations! You answered correctly.'
+        result = Markup('<div class="alert alert-success" role="alert">Congratulations! You answered correctly.</div>')
     else:
-        result = 'Sorry, your answer is incorrect.'
+        result = Markup('<div class="alert alert-danger" role="alert">Sorry, your answer is incorrect.</div>')
 
     return render_template('result.html', result=result)
 
