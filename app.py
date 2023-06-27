@@ -49,7 +49,7 @@ def new_question():
     question_text = question.question
     answer_choices = question.answers
     question_id = question.qid
-    return render_template('index.html', question=question)
+    return render_template('index.html', question_text=question_text, answer_choices=answer_choices, question_id=question_id)
 
 
 if __name__ == '__main__':
