@@ -13,10 +13,7 @@ class QuestionController:
         question = self.get_random_question()
         return TemplateRenderer.render_question('index.html', question)
 
-    def result(self):
-        question_id = request.form['question_id']
-        selected_answer = request.form['answer']
-
+    def result(self, question_id, selected_answer):
         question = self.question_bank.get_question_by_id(question_id)
 
         if question is None:
