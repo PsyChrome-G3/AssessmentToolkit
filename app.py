@@ -36,7 +36,9 @@ def result():
     if selected_answer == correct_answer:
         result = Markup('<div class="alert alert-success" role="alert">Congratulations! You answered correctly.</div>')
     else:
-        result = Markup('<div class="alert alert-danger" role="alert">Sorry, your answer is incorrect.</div>')
+        incorrect_alert = Markup('<div class="alert alert-danger" role="alert">Sorry, your answer is incorrect.</div>')
+        correct_alert = Markup('<div class="alert alert-primary" role="alert"><strong>The correct answer is:</strong><br><div class="correct-answer">' + correct_answer + '</div></div>')
+        result = incorrect_alert + correct_alert
 
     return render_template('result.html', result=result)
 
