@@ -24,6 +24,10 @@
     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0">
         <div class="container">
+            <div>
+                Current Score: {{ current_score }} / {{ total_questions }}
+            </div>
+
             <div id="question-container">
                 <h2>Question {{ question_number }} of {{ total_questions }}:</h2>
                 <p id="question">{{ question_text }}</p>
@@ -38,7 +42,7 @@
                 <div class="form-check">
                     {% for choice in answer_choices %}
                     <div class="form-check answer-choice">
-                        <input class="form-check-input" type="radio" name="answer" id="answer{{ loop.index }}" value="{{ choice }}">
+                        <input class="form-check-input" type="radio" name="selected_answer" id="answer{{ loop.index }}" value="{{ choice }}">
                         <label class="form-check-label" for="answer{{ loop.index }}">
                             {{ choice }}
                         </label>

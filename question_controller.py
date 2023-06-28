@@ -2,22 +2,23 @@ from template_renderer import TemplateRenderer
 
 
 class QuestionController:
-    def __init__(self, question_bank, loaded_json):
+    def __init__(self, question_bank, loaded_json, total_questions):
         self.question_bank = question_bank
         self.loaded_json = loaded_json
         self.question_number = 0  # Initialize question number
         self.score = 0  # Initialize the score attribute to 0
+        self.total_questions = total_questions  # Set the total_questions attribute
 
     def get_random_question(self):
         return self.question_bank.get_random_question()
 
-    def home(self, total_questions):
+    def home(self, total_questions, current_score):
         self.question_number += 1  # Increment question number
         question = self.get_random_question()
         return TemplateRenderer.render_question('index.html', question, self.question_number, total_questions,
-                                                self.loaded_json, self.score)
+                                                self.loaded_json, self.score, current_score)
 
-    def result(self, question_id, selected_answer, total_score):
+    def result(self, question_id, selected_answer):
         question = self.question_bank.get_question_by_id(question_id)
 
         if question is None:
@@ -29,7 +30,9 @@ class QuestionController:
             self.score += 1
 
         score = self.calculate_score(question_id, selected_answer)
-        return TemplateRenderer.render_result(correct_answer, selected_answer, self.loaded_json, score, total_score)
+        current_score = self.score  # Use the updated score from the class variable
+        return TemplateRenderer.render_result(correct_answer, selected_answer, self.loaded_json, score, self.total_questions,
+                                              current_score)
 
     def calculate_score(self, question_id, selected_answer):
         question = self.question_bank.get_question_by_id(question_id)
@@ -47,9 +50,9 @@ class QuestionController:
     def get_total_score(self):
         return self.score
 
-    def new_question(self, total_questions):
+    def new_question(self, total_questions, current_score):
         self.question_number += 1  # Increment question number
         question = self.get_random_question()
         return TemplateRenderer.render_question('index.html', question, self.question_number, total_questions,
-                                                self.loaded_json, self.score)
+                                                self.loaded_json, self.score, current_score)
 

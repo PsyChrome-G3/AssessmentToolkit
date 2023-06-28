@@ -8,21 +8,24 @@ question_bank = QuestionBank()
 question_bank.load_from_json("data/DFIR-QB.json")
 
 loaded_json = "DFIR-QB.json"  # Replace with your Question Bank file name
-question_controller = QuestionController(question_bank, loaded_json)
+
+total_questions = len(question_bank.questions)  # Initialize total_questions here
+
+question_controller = QuestionController(question_bank, loaded_json, total_questions)
 
 question_number = 0
-total_questions = len(question_bank.questions)
 
 
 @app.route('/')
 def home():
-    return question_controller.home(total_questions)
+    current_score = question_controller.get_total_score()  # Get the current score
+    return question_controller.home(total_questions, current_score)
 
 
 @app.route('/result', methods=['POST'])
 def result():
-    question_id = request.form.get('question_id')
-    selected_answer = str(request.form.get('answer'))
+    question_id = request.form.get('question_id')  # Get the question ID from the form
+    selected_answer = request.form.get('selected_answer')  # Get the selected answer from the form
 
     if not question_id or not selected_answer:
         return render_template('error.html', message='Invalid input data.')
@@ -32,22 +35,13 @@ def result():
 
     question_id = question_id.zfill(4)  # Pad the question ID with leading zeros to a length of 4
 
-    question = question_bank.get_question_by_id(question_id)
-
-    if question is None:
-        return render_template('error.html', message='Question not found.')
-
-    if selected_answer not in map(str, question.answers):
-        return render_template('error.html', message='Invalid selected answer.')
-
-    total_score = question_controller.get_total_score()
-
-    return question_controller.result(question_id, selected_answer, total_score)
+    return question_controller.result(question_id, selected_answer)
 
 
 @app.route('/new-question')
 def new_question():
-    return question_controller.new_question(total_questions)
+    current_score = question_controller.get_total_score()  # Get the current score
+    return question_controller.new_question(total_questions, current_score)
 
 
 if __name__ == '__main__':

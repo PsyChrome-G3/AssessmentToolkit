@@ -3,8 +3,9 @@ import random
 
 
 class Question:
-    def __init__(self, qid, question, screenshot_path, answers, correct_answer):
+    def __init__(self, qid, text, question, screenshot_path, answers, correct_answer):
         self.qid = qid
+        self.text = text
         self.question = question
         self.screenshot_path = screenshot_path
         self.answers = answers
@@ -34,7 +35,9 @@ class QuestionBank:
                 answer_choices = question_data['answer_choices']
                 correct_answer = question_data['correct_answer']
 
-                question = Question(question_id, question_text, screenshot_path, answer_choices, correct_answer)
+                question = Question(
+                    question_id, question_text, question_text, screenshot_path, answer_choices, correct_answer
+                )
                 self.questions.append(question)
 
         except FileNotFoundError:
