@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assessment ToolKit | Results</title>
+    <title>Assessment ToolKit | Complete</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -21,22 +21,20 @@
       </nav>
     </header>
 
-    <!-- Begin page content -->
+     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-4">Results</h1>
+            <h1 class="mt-4">Test Complete</h1>
             <div class="card my-4">
                 <div class="card-body">
-                    <h5 class="card-title">{{ result }}</h5>
-                    <div>
-                        Current Score: {{ current_score }} / {{ total_questions }}
-                    </div>
+                    <h5 class="card-title">Congratulations!</h5>
+                    <p class="card-text">You have successfully completed this question bank.</p>
+                    <p class="card-text">Your score: {{ current_score }} / {{ total_questions }}</p>
                 </div>
             </div>
             <div>
-                <a href="/new-question" class="btn btn-primary">New Question</a>
                 <form action="/restart" method="post" style="display: inline-block;">
-                    <button type="submit" class="btn btn-success">Restart Test</button>
+                    <button type="submit" class="btn btn-primary">Restart Test</button>
                 </form>
             </div>
         </div>

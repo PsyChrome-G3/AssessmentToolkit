@@ -5,7 +5,7 @@ import random
 class Question:
     def __init__(self, qid, text, question, screenshot_path, answers, correct_answer):
         self.qid = qid
-        self.text = text
+        self.text = text  # Assign the correct value to the 'text' attribute
         self.question = question
         self.screenshot_path = screenshot_path
         self.answers = answers

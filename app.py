@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from question import QuestionBank
 from question_controller import QuestionController
 
 app = Flask(__name__, static_folder='static')
 
 question_bank = QuestionBank()
-question_bank.load_from_json("data/DFIR-QB.json")
+question_bank.load_from_json("data/DFIR-QB-Small.json")
 
-loaded_json = "DFIR-QB.json"  # Replace with your Question Bank file name
+loaded_json = "DFIR-QB-Small.json"  # Replace with your Question Bank file name
 
 total_questions = len(question_bank.questions)  # Initialize total_questions here
 
@@ -19,6 +19,11 @@ question_number = 0
 @app.route('/')
 def home():
     current_score = question_controller.get_total_score()  # Get the current score
+    question = question_controller.get_random_question()
+
+    if question is None:
+        return render_template('error.html', message='No more questions available.')
+
     return question_controller.home(total_questions, current_score)
 
 
@@ -38,10 +43,21 @@ def result():
     return question_controller.result(question_id, selected_answer)
 
 
+@app.route('/complete')
+def complete():
+    return render_template('complete.html')
+
+
 @app.route('/new-question')
 def new_question():
     current_score = question_controller.get_total_score()  # Get the current score
     return question_controller.new_question(total_questions, current_score)
+
+
+@app.route('/restart', methods=['POST'])
+def restart_test():
+    question_controller.reset_test()
+    return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
