@@ -38,7 +38,7 @@ This is a simple quiz application built with Flask. It allows users to answer mu
 
 You can customize the questions by modifying the question bank JSON file. The JSON file should follow the following format:
 
-```json
+```json lines
 [
   {
     "question_id": "001",
@@ -53,7 +53,7 @@ You can customize the questions by modifying the question bank JSON file. The JS
     "screenshot_path": "screenshots/002.png",
     "answer_choices": ["Venus", "Mars", "Mercury", "Earth"],
     "correct_answer": "Mercury"
-  },`
+  },
   ...
 ]
 ```
