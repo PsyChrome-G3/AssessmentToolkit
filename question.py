@@ -14,6 +14,9 @@ class Question:
     def __str__(self):
         return f"Question {self.qid}: {self.question}"
 
+    def randomize_answers(self):
+        random.shuffle(self.answers)
+
 
 class QuestionBank:
     def __init__(self):
@@ -38,6 +41,7 @@ class QuestionBank:
                 question = Question(
                     question_id, question_text, question_text, screenshot_path, answer_choices, correct_answer
                 )
+                question.randomize_answers()  # Randomize the answer choices
                 self.questions.append(question)
 
         except FileNotFoundError:

@@ -28,6 +28,7 @@ class QuestionController:
 
         if question:
             self.used_question_ids.add(question.qid)
+            question.randomize_answers()  # Randomize the answer choices
 
         print("Selected question:", question.qid)
         print('Remaining Questions: ' + str(len(remaining_questions)))

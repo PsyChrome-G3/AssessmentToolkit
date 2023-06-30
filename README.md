@@ -9,7 +9,7 @@ This is a simple quiz application built with Flask. It allows users to answer mu
 - Ability to include media images to aid in the assessment process.
 - Visually appealing GUI front end for an intuitive user experience.
 - Immediate feedback on correct and incorrect answers during the assessment.
-- Randomization of question order for enhanced challenge.
+- Randomization of question order and answer choices for enhanced challenge.
 - Keeps track of the user's score.
 
 
