@@ -5,7 +5,7 @@ import random
 class Question:
     def __init__(self, qid, text, question, screenshot_path, answers, correct_answer):
         self.qid = qid
-        self.text = text  # Assign the correct value to the 'text' attribute
+        self.text = text
         self.question = question
         self.screenshot_path = screenshot_path
         self.answers = answers
@@ -54,14 +54,20 @@ class QuestionBank:
 
     def get_random_question(self):
         if len(self.used_question_ids) == len(self.questions):
-            # All questions have been used, handle this case (e.g., return None or raise an exception)
+            # All questions have been used
+            print("All questions have been used.")
             return None
 
-        while True:
-            question = random.choice(self.questions)
-            if question.qid not in self.used_question_ids:
-                self.used_question_ids.add(question.qid)
-                return question
+        remaining_questions = [question for question in self.questions if question.qid not in self.used_question_ids]
+        if len(remaining_questions) == 1:
+            # Last remaining question
+            print("Last remaining question.")
+            question = remaining_questions[0]
+        else:
+            question = random.choice(remaining_questions)
+
+        self.used_question_ids.add(question.qid)
+        return question
 
     def save_to_json(self, json_file):
         try:

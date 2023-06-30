@@ -19,10 +19,6 @@ question_number = 0
 @app.route('/')
 def home():
     current_score = question_controller.get_total_score()  # Get the current score
-    question = question_controller.get_random_question()
-
-    if question is None:
-        return render_template('error.html', message='No more questions available.')
 
     return question_controller.home(total_questions, current_score)
 
