@@ -5,9 +5,10 @@ from question_controller import QuestionController
 app = Flask(__name__, static_folder='static')
 
 question_bank = QuestionBank()
-question_bank.load_from_json("data/DFIR-QB-Small.json")
+question_bank_file = "data/DFIR-QB.json"  # Load the question bank from a JSON file
+question_bank.load_from_json(question_bank_file)
 
-loaded_json = "DFIR-QB-Small.json"  # Replace with your Question Bank file name
+loaded_json = question_bank_file.split("/")[-1]  # Extract the file name from the path
 
 total_questions = len(question_bank.questions)  # Initialize total_questions here
 
