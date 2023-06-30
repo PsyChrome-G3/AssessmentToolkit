@@ -163,5 +163,5 @@ notes.txt
 *.xlsx
 
 # Don't include local question banks
-data/DFIR-QB.json
+data/*.json
 screenshots/*.png
